@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div class="form-wrapper">
+      <div mat-card-avatar class="logo">
+        <img [src]="'assets/wuling.png'" alt="">
+      </div>
+      <h3>Log in</h3>
+
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input type="text" matInput formControlName="email">
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">Email wajib diisi</mat-error>
+        <mat-error *ngIf="loginForm.get('email').hasError('email')">Email tidak valid</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input [type]="type" matInput formControlName="password">
+        <mat-icon (click)="onSetVisibility()" matSuffix>{{eye}}</mat-icon>
+        <mat-error *ngIf="loginForm.get('password').hasError('required')">Password wajib diisi</mat-error>
+        <mat-error *ngIf="loginForm.get('password').hasError('minlength')">Password minimal 6 karakter / digit</mat-error>
+      </mat-form-field>
+
+      <div class="check-wrapper">
+        <input type="checkbox" class="checkbox"> &nbsp;&nbsp; <span>Remember Me</span>
+      </div>
+      <br><br>
+      <div class="btn-container">
+        <button class="btn" mat-raised-button>Login</button>
+      </div>
+    </div>
+  </form>
+</div>

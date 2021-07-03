@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; width: 100% }
+body { margin: 0; padding: 0;}
+
+@font-face {
+  font-family: 'poppin-regular';
+  src: url(./assets/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'poppin-medium';
+  src: url(./assets/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'poppin-light';
+  src: url(./assets/Poppins-Light.ttf);
+}
+
+table, th, td, tr, input, form, button {
+  font-family: 'poppin-medium' !important;
+  font-weight: bold !important;
+}
+
+button.mat-icon-button {
+  min-width: 0 !important;
+}
