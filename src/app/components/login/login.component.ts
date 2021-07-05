@@ -26,18 +26,18 @@ export class LoginComponent implements OnInit {
     this.loader = true;
     this.sharedService.connection('POST', 'master-login', this.loginForm.value).subscribe((response: any) => {
       if (response.status == 200) {
+        console.log(response);
         this.loader = false;
         if (response.body.status) {
           this.sharedService.saveToLocalStorage(response.body.data);
-          if (response.body.data.role == 1) this.router.navigate(['/admin']);
-          if (response.body.data.role == 2) this.router.navigate(['/member']);
+          this.router.navigate(['/user-pending']);       
         } else {
           this.processError(response.body.error);
         }
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('Something went wrong', 'Dismiss');
+      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
     });
   }
 
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       });
     }
 
-    if (errors.type === 'snack') this.sharedService.callSnack(errors.msg.default, 'Dismiss');    
+    if (errors.type === 'message') this.sharedService.callSnack(errors.msg.default, 'Tutup');    
   }
 
   onSetVisibility () {

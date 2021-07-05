@@ -30,11 +30,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserPendingComponent } from './components/user-pending/user-pending.component';
+import { UserActiveComponent } from './components/user-active/user-active.component';
+import { HomeComponent } from './components/home/home.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { KotaComponent } from './components/kota/kota.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    UserPendingComponent,
+    UserActiveComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    KotaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,42 @@
+<mat-sidenav-container class="example-container">
+  
+  <mat-sidenav (window:resize)="onResize()" #sidenav [mode]="modeSide" [opened]="open" role="navigation">  
+     <mat-nav-list>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/user-pending" (click)="onToggle(sidenav)"> 
+        <mat-icon>people</mat-icon>
+        <span class="nav-caption">User Pending</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/user-active" (click)="onToggle(sidenav)"> 
+        <mat-icon>shop</mat-icon>
+        <span class="nav-caption">User Active</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/kota" (click)="onToggle(sidenav)"> 
+        <mat-icon>map</mat-icon>
+        <span class="nav-caption">Kota / Chapter</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+      <!-- fxHide.sm fxHide.md fxHide.lg fxHide.xl -->
+    <mat-toolbar color="primary">
+      <div>
+        <button (click)="onToggleButton(sidenav)" mat-icon-button>
+          <mat-icon class="material-icons">menu</mat-icon>
+        </button>
+      </div>
+
+      <span class="example-spacer"></span>
+
+      <div>
+        <button mat-button (click)="onLogout(sidenav)">Logout</button>
+      </div>
+    
+    </mat-toolbar>
+      
+    <div style="margin: 20px">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

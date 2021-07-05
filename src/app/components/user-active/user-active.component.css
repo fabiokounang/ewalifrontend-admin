@@ -1,0 +1,98 @@
+table {
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.hid {
+  display: none;
+}
+
+.table-wrapper {
+  max-height: calc(100vh - 29vh);
+  overflow: auto;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+tr.mat-header-row, tr.mat-row {
+  /* height: 35px; */
+  vertical-align: middle;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.filter-wrapper mat-form-field {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+th.imp {
+  font-weight: bold;
+  vertical-align: middle !important;
+  font-size: 15px !important;
+  white-space: nowrap !important;
+  padding: 0px 10px !important;
+}
+
+td.imp {
+  font-weight: bold;
+  font-family: 'poppin-light' !important;
+  vertical-align: middle !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  padding: .7rem !important;
+}
+
+.check-all {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  bottom: -5px;
+}
+
+div ul.list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+button {
+  min-width: 80px;
+  line-height: 25px;
+  font-size: 12px;
+  margin: 0px 5px;
+}
+
+.btn-wrapper {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.active {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.suspend {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.block {
+  background-color: grey;
+  color: #fff;
+}
