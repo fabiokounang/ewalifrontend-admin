@@ -8,7 +8,6 @@ import { SharedService } from 'src/app/shared/service/shared.service';
   styleUrls: ['./user-active.component.css']
 })
 export class UserActiveComponent implements OnInit {
-
   loader = false;
   tableQueryData: any = {
     page: 1,
@@ -46,7 +45,7 @@ export class UserActiveComponent implements OnInit {
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('error.general', 'action.dismiss');
+      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
     });
   }
 
@@ -114,7 +113,7 @@ export class UserActiveComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex;
+    this.tableQueryData.page = event.pageIndex + 1;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllUserPending();
   }

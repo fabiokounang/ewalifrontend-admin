@@ -26,3 +26,7 @@ table, th, td, tr, input, form, button {
 button.mat-icon-button {
   min-width: 0 !important;
 }
+
+input {
+  font-family: 'poppin-light' !important;
+}

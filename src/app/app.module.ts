@@ -35,6 +35,9 @@ import { UserActiveComponent } from './components/user-active/user-active.compon
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { KotaComponent } from './components/kota/kota.component';
+import { FormAddKotaComponent } from './components/forms/form-add-kota/form-add-kota.component';
+import { FormEditKotaComponent } from './components/forms/form-edit-kota/form-edit-kota.component';
+import { FormConfirmationComponent } from './components/forms/form-confirmation/form-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { KotaComponent } from './components/kota/kota.component';
     UserActiveComponent,
     HomeComponent,
     PageNotFoundComponent,
-    KotaComponent
+    KotaComponent,
+    FormAddKotaComponent,
+    FormEditKotaComponent,
+    FormConfirmationComponent
   ],
   imports: [
     BrowserModule,

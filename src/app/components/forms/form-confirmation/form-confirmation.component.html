@@ -1,0 +1,8 @@
+<div style="margin: auto; text-align: center;">
+  <p>{{text}}</p>
+  <p *ngIf="warning" class="warns">{{warning}}</p>
+  <br>
+  <button mat-raised-button color="warn" [mat-dialog-close]="false">Tidak</button>
+  &nbsp;
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Ya</button>
+</div>

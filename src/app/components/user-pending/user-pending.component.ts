@@ -45,7 +45,7 @@ export class UserPendingComponent implements OnInit {
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('error.general', 'action.dismiss');
+      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
     });
   }
 
@@ -113,7 +113,7 @@ export class UserPendingComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex;
+    this.tableQueryData.page = event.pageIndex + 1;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllUserPending();
   }

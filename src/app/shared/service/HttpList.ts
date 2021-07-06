@@ -8,6 +8,9 @@ export default {
   'master-user-active': {
     endpoint: 'api/users/v1_0'
   },
+  'master-kota': {
+    endpoint: 'api/kota/v1_0'
+  },
   'master-logout': {
     endpoint: 'api/logout'
   }

@@ -1,1 +1,71 @@
-<p>kota works!</p>
+<div class="filter-wrapper">
+  <div class="position: relative">
+    <button type="button" color="primary" mat-raised-button (click)="onOpenAddDialog()">
+      <span style="font-size: 12px; color: white">Tambah Kota / Chapter</span>
+    </button>
+  </div>
+  <span class="example-spacer"></span>
+  <div>
+    <mat-form-field>
+      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Email & nama user" matInput>
+    </mat-form-field>
+  </div>
+</div>
+
+<div *ngIf="loader" style="position: fixed;width: 100%;top: 0; left: 0">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="table-wrapper" *ngIf="dataSource.data.length <= 0 && !loader">
+  <br>
+  <h5 style="text-align: center">No Data</h5>
+  <br>
+</div>
+
+<div class="table-wrapper" *ngIf="dataSource.data.length > 0">
+  <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" class="table table-data mat-elevation-z8">
+    <ng-container matColumnDef="kota_created_at" sticky>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Dibuat pada </th>
+      <td class="imp" mat-cell *matCellDef="let element"> 
+        <p style="margin: 0;">{{element.kota_created_at | date: 'dd MMM yyyy'}}</p> 
+        <p style="margin: 0;">{{element.kota_created_at | date: 'hh:mm:ss a'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="kota_nama">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Nama Kota / Chapter </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.kota_nama | titlecase}} </td>
+    </ng-container>    
+
+    <ng-container matColumnDef="action" stickyEnd>
+      <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
+      <td class="imp" mat-cell *matCellDef="let element; let i = index">
+        <button (click)="onOpenEditDialog(element)" matTooltip="Edit Admin Data" style="min-width: 0" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button> 
+        <button matTooltip="Hapus Kota / Chapter" style="min-width: 0" mat-icon-button (click)="onConfirmation(element)">
+          <mat-icon>delete</mat-icon>
+        </button>  
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr class="rows" mat-row 
+      *matRowDef="let row; columns: displayedColumns" 
+      style="cursor: pointer; transition: 0.5s"
+    ></tr>
+    
+  </table>
+</div>
+
+<mat-paginator
+  *ngIf="dataSource.data.length > 0"
+  class="table-pagination" 
+  (page)="onPageChange($event)"
+  [pageSize]="tableQueryData.limit"
+  [pageSizeOptions]="[10, 50, 100, 200]"
+  [length]="tableQueryData.totalAll" 
+  [pageIndex]="tableQueryData.page -1"
+  [hidePageSize]="false"
+  [showFirstLastButtons]="true">
+</mat-paginator>
