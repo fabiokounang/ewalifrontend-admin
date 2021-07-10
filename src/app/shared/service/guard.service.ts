@@ -27,12 +27,8 @@ export class GuardService implements CanActivate, CanLoad, CanActivateChild { //
     return this.sharedService.connection('GET', 'master-get-login').toPromise().then((response: any) => {
       if (response.status == 200) {
         if (response.body.status) {
-          if (route && route.routeConfig && route.routeConfig.path && (route.routeConfig.path.includes('toko') || route.routeConfig.path.includes('kategori') || route.routeConfig.path.includes('admin')) && response.body.data.role > 1) {
-            status = false;          
-          } else {
-            status = true;
-            this.sharedService.saveToLocalStorage(response.body.data, false);
-          }
+          status = true;
+          this.sharedService.saveToLocalStorage(response.body.data);
         }
       }
       if (!status) {

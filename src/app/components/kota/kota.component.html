@@ -40,10 +40,10 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button (click)="onOpenEditDialog(element)" matTooltip="Edit Admin Data" style="min-width: 0" mat-icon-button>
+        <button (click)="onOpenEditDialog(element)" matTooltip="Edit Admin Data" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button> 
-        <button matTooltip="Hapus Kota / Chapter" style="min-width: 0" mat-icon-button (click)="onConfirmation(element)">
+        <button matTooltip="Hapus Kota / Chapter" mat-icon-button (click)="onConfirmation(element)">
           <mat-icon>delete</mat-icon>
         </button>  
       </td>

@@ -1,0 +1,62 @@
+<div>
+  <table>
+    <thead>
+      <th>Keterangan</th>
+      <th>Isi</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let key of objectKeys(user); let i = index">
+        <ng-container *ngIf="wantedKeys.includes(key)">
+          <td>{{key.split('_').join(' ') | titlecase}}</td>
+          <td *ngIf="checkType(user[key]) != 'object'">{{user[key] | titlecase}}</td>
+          <td *ngIf="checkType(user[key]) == 'object'">
+            <ul>
+              <li *ngFor="let detail of user[key]; let j = index">{{detail | titlecase}}</li>
+            </ul>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <div>
+    <div class="btn-container">
+      <mat-radio-group (change)="onReview($event)" aria-label="Approve / Reject">
+        <mat-radio-button [value]="'reject'">Reject</mat-radio-button>
+        &nbsp;&nbsp;&nbsp;
+        <mat-radio-button [value]="'approve'">Approve</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="notekota">
+      <div *ngIf="status == 'reject'">
+        <mat-form-field appearance="fill">
+          <mat-label>Note (alasan direject)</mat-label>
+          <textarea [(ngModel)]="note" matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+      </div>
+    
+      <div *ngIf="status == 'approve'">
+        <mat-form-field appearance="fill">
+          <mat-label>Pilih Kota</mat-label>
+          <mat-select (selectionChange)="onSelectKota($event)">
+            <mat-option *ngFor="let kota of kotas" [value]="kota.kota_id">{{kota.kota_nama | titlecase}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="btn-container" *ngIf="status != ''">
+      <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+
+  <br>
+
+</div>

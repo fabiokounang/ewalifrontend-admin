@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from 'src/app/shared/service/shared.service';
+import { FormConfirmationComponent } from '../forms/form-confirmation/form-confirmation.component';
+import { UpgradeDowngradeUserComponent } from '../upgrade-downgrade-user/upgrade-downgrade-user.component';
 
 @Component({
   selector: 'app-user-active',
@@ -22,10 +25,18 @@ export class UserActiveComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
   isFilter: boolean = false;
   searchText: string = '';
-  constructor (private sharedService: SharedService) {}
+  userData: any = null;
+  constructor (private sharedService: SharedService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.fillData();
     this.getAllUserPending();
+  }
+
+  fillData () {
+    this.userData = {
+      user_id: this.sharedService.getLocalStorageUserId()
+    }
   }
 
   getAllUserPending () {
@@ -45,7 +56,7 @@ export class UserActiveComponent implements OnInit {
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
     });
   }
 
@@ -93,6 +104,26 @@ export class UserActiveComponent implements OnInit {
 
   processError (errors) {
     if (errors.type === 'message') this.sharedService.callSnack(errors.msg.default, 'Tutup');    
+  }
+
+  blockUser (user) {
+    this.sharedService.connection('GET', 'master-user-pending', {}, this.populateGetBody()).subscribe((response: any) => {
+      if (response.status == 200) {
+        this.loader = false;
+        if (response.body.status) {
+          this.tableQueryData.page = response.body.data.page;
+          this.tableQueryData.limit = response.body.data.limit;
+          this.tableQueryData.max = response.body.data.max;
+          this.tableQueryData.totalAll = response.body.data.total;
+          this.dataSource = new MatTableDataSource(response.body.data.values);
+        } else {
+          this.processError(response.body.error);
+        }
+      }
+    }, (error) => {
+      this.loader = false;
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
+    });
   }
 
   onResetFilter () {
@@ -145,6 +176,45 @@ export class UserActiveComponent implements OnInit {
     //     this.getAllUserPending();
     //   }
     // })
+  }
+
+  onOpenUpgradeDialog (element) {
+    const dialog = this.dialog.open(UpgradeDowngradeUserComponent);
+    dialog.afterClosed().subscribe((result) => {
+      this.upgradeDowngradeUser(result, element.user_id);
+    });
+  }
+
+  upgradeDowngradeUser (role, userId) {
+    this.loader = true;
+    this.sharedService.connection('PUT', 'master-upgrade-downgrade-user', { user_role: role }, '', userId).subscribe((response: any) => {
+      if (response.status == 200) {
+        this.loader = false;
+        if (response.body.status) {
+          this.sharedService.callSnack('Sukses upgrade user user', 'Tutup');
+          this.getAllUserPending();
+        } else {
+          this.processError(response.body.error);
+        }
+      }
+    }, (error) => {
+      this.loader = false;
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
+    });
+  }
+
+  onConfirmation (data) {
+    const dialog = this.dialog.open(FormConfirmationComponent, {
+      width: '300px',
+      data: {
+        text: 'Apakah anda yakin akan block user ini ?',
+        warning: ''
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result) this.blockUser(data);
+    });
   }
 
   resetData () {

@@ -50,7 +50,7 @@ export class KotaComponent implements OnInit {
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
     });
   }
 
@@ -138,7 +138,10 @@ export class KotaComponent implements OnInit {
   onOpenAddDialog () {
     const dialog = this.dialog.open(FormAddKotaComponent);
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.getAllKotaChapter();
+      if (result) {
+        this.resetData();
+        this.getAllKotaChapter();
+      }
     });
   }
 
@@ -149,7 +152,10 @@ export class KotaComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.getAllKotaChapter();
+      if (result) {
+        this.resetData();
+        this.getAllKotaChapter();
+      }
     });
   }
 
@@ -162,7 +168,7 @@ export class KotaComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result == true) this.deleteKota(data);
+      if (result) this.deleteKota(data);
     });
   }
 

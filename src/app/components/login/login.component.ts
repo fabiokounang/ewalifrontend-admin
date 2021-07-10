@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
     });
   }
 

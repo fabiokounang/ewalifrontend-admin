@@ -11,6 +11,7 @@ import { Meta } from '@angular/platform-browser';
 
 export class SharedService {
   private apiHttp: string = '';
+  private systemErrorMsg = 'Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi';
   subHttp = HttpList;
   onUpdatedContact: Subject<any> = new Subject<any>();
   onFilter: Subject<any> = new Subject<any>();
@@ -56,9 +57,10 @@ export class SharedService {
   }
 
   saveToLocalStorage (data) {
-    localStorage.setItem('role', data.role);
-    localStorage.setItem('_id', data._id);
-    localStorage.setItem('username', data.username);
+    localStorage.setItem('user_role', data.user_role);
+    localStorage.setItem('user_id', data.user_id);
+    localStorage.setItem('user_email', data.user_email);
+    if (data.user_nama) localStorage.setItem('user_nama', data.user_nama);
   }
 
   setFilterData (filterData) {
@@ -75,41 +77,18 @@ export class SharedService {
 
   removeLocalStorage () {
     // localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('_id');
-    localStorage.removeItem('username');
+    localStorage.removeItem('user_role');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('user_nama');
   }
 
-  getSkeletonAdminUser () {
-    return this.status;
-  }
-
-  getSkeletonContact () {
-    return this.statusProsesContact;
-  }
-
-  getSkeletonRole () {
-    return this.skeletonRoleAdmin;
-  }
-
-  getSkeletonKategoriTipe () {
-    return this.tipes;
-  }
-
-  getSkeletonStatusContact () {
-    return this.statusContact;
-  }
-
-  getLocalStorageToken () {
-    return localStorage.getItem('token');
-  }
-
-  getLocalStorageAdminId () {
-    return localStorage.getItem('_id');
+  getLocalStorageUserId () {
+    return localStorage.getItem('user_id');
   }
 
   getLocalStorageRole () {
-    return localStorage.getItem('role');
+    return localStorage.getItem('user_role');
   }
   
   getApiHttp () {
@@ -124,5 +103,9 @@ export class SharedService {
     this.snack.open(text, action, {
       duration: 3000
     });
+  }
+
+  getSystemErrorMsg () {
+    return this.systemErrorMsg;
   }
 }

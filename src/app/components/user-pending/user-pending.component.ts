@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from 'src/app/shared/service/shared.service';
+import { DetailUserComponent } from '../detail-user/detail-user.component';
+import { FormConfirmationComponent } from '../forms/form-confirmation/form-confirmation.component';
 
 @Component({
   selector: 'app-user-pending',
@@ -22,7 +25,10 @@ export class UserPendingComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
   isFilter: boolean = false;
   searchText: string = '';
-  constructor (private sharedService: SharedService) {}
+  note: string = '';
+  selectedKota: any = null;
+  kotas: any = [];
+  constructor (private sharedService: SharedService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getAllUserPending();
@@ -39,13 +45,14 @@ export class UserPendingComponent implements OnInit {
           this.tableQueryData.max = response.body.data.max;
           this.tableQueryData.totalAll = response.body.data.total;
           this.dataSource = new MatTableDataSource(response.body.data.values);
+          this.kotas = response.body.data.kota;
         } else {
           this.processError(response.body.error);
         }
       }
     }, (error) => {
       this.loader = false;
-      this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
     });
   }
 
@@ -145,6 +152,55 @@ export class UserPendingComponent implements OnInit {
     //     this.getAllUserPending();
     //   }
     // })
+  }
+
+  onOpenDetailDialog (data, index) {
+    let user = {
+      ...data,
+      ...data.user_detail
+    }
+    delete user.user_detail;
+    const dialog = this.dialog.open(DetailUserComponent, {
+      width: '550px',
+      height: '500px',
+      data: {
+        user: user,
+        index: index,
+        kota: this.kotas
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result.status == 'reject') this.note = result.note;
+      if (result.status == 'approve') this.selectedKota = result.kota;
+      this.onReviewDataUser(result.status, data.user_id);
+    });
+  }
+
+  onReviewDataUser (result, userId) {
+    this.loader = true;
+    if (result == 'reject' && !this.note) this.sharedService.callSnack('Note untuk keterangan ditolak wajib diisi', 'Tutup');
+    if (result == 'approve' && !this.selectedKota) this.sharedService.callSnack('Jika diapprove, wajib memilih kota / chapter untuk user', 'Tutup');
+    let objReview = {
+      status_form: result == 'reject' ? 2 : 1,
+      kota: this.selectedKota,
+      note: this.note
+    }
+    if (result == 'reject') delete objReview.kota;
+    if (result == 'approve') delete objReview.note;
+    this.sharedService.connection('PUT', 'master-review-form', objReview, '', userId).subscribe((response: any) => {
+      if (response.status == 200) {
+        this.loader = false;
+        if (response.body.status) {
+          this.sharedService.callSnack('Sukses review data user', 'Tutup');
+          this.getAllUserPending();
+        } else {
+          this.processError(response.body.error);
+        }
+      }
+    }, (error) => {
+      this.loader = false;
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
+    });
   }
 
   resetData () {

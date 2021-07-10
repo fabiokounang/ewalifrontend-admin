@@ -27,29 +27,29 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" class="table table-data mat-elevation-z8">
-    <ng-container matColumnDef="user_created_at" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Terdaftar pada </th>
+    <ng-container matColumnDef="user_created_at">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Terdaftar </th>
       <td class="imp" mat-cell *matCellDef="let element"> 
         <p style="margin: 0;">{{element.user_created_at | date: 'dd MMM yyyy'}}</p> 
         <p style="margin: 0;">{{element.user_created_at | date: 'hh:mm:ss a'}}</p>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="user_last_update" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Data diperbarui pada </th>
+    <ng-container matColumnDef="user_last_update">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Terakhir diperbarui </th>
       <td class="imp" mat-cell *matCellDef="let element">
-        <ng-container *ngIf="element.user_last_update">
+        <ng-container *ngIf="element.user_detail">
           <p style="margin: 0;">{{element.user_last_update | date: 'dd MMM yyyy'}}</p> 
           <p style="margin: 0;">{{element.user_last_update | date: 'hh:mm:ss a'}}</p>
         </ng-container>
-        <ng-container>
-          Belum isi form
+        <ng-container *ngIf="!element.user_detail">
+          <small style="color: red">Belum isi form</small>
         </ng-container>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="user_email">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Email user </th>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Email </th>
       <td class="imp" mat-cell *matCellDef="let element"> {{element.user_email}} </td>
     </ng-container>    
 
@@ -66,8 +66,8 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Edit Admin Data" style="min-width: 0" mat-icon-button>
-          <mat-icon>edit</mat-icon>
+        <button *ngIf="element.user_detail && element.user_status != 1 && !element.user_detail.note" (click)="onOpenDetailDialog(element, i)" matTooltip="Review Data User" mat-icon-button>
+          <mat-icon>info</mat-icon>
         </button> 
       </td>
     </ng-container>

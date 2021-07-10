@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserActiveComponent } from './components/user-active/user-active.component';
 import { UserPendingComponent } from './components/user-pending/user-pending.component';
+import { GuardService } from './shared/service/guard.service';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [GuardService],
     children: [
         {
           path: 'user-pending',

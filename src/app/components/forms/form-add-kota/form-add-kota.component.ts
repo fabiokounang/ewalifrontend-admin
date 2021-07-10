@@ -47,7 +47,7 @@ export class FormAddKotaComponent implements OnInit {
         }
       }, (error) => {
         this.helperOnAddForm();
-        this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+        this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
       })
     } else {
       this.helperOnAddForm();

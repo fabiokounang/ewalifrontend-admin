@@ -11,7 +11,16 @@ export default {
   'master-kota': {
     endpoint: 'api/kota/v1_0'
   },
+  'master-review-form': {
+    endpoint: 'api/users/review_form/v1_0'
+  },
+  'master-upgrade-downgrade-user': {
+    endpoint: 'api/users/role/v1_0'
+  },
   'master-logout': {
     endpoint: 'api/logout'
+  },
+  'master-get-login': {
+    endpoint: 'api/users/get_login/v1_0'
   }
 }

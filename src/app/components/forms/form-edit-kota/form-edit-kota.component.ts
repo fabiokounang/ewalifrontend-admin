@@ -48,7 +48,7 @@ export class FormEditKotaComponent implements OnInit {
         }
       }, (error) => {
         this.helperOnEditForm();
-        this.sharedService.callSnack('Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi', 'Tutup');
+        this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
       })
     } else {
       this.helperOnEditForm();

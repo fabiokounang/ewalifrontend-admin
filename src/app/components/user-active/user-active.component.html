@@ -47,24 +47,39 @@
 
     <ng-container matColumnDef="kota">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Kota / Chapter </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.kota || '-'}} </td>
+      <td class="imp" mat-cell *matCellDef="let element"> {{(element.kota_nama | titlecase) || '-'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="user_role">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Role </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.user_role}} </td>
+      <td class="imp" mat-cell *matCellDef="let element"> {{(element.user_role == 1 ? 'admin' : element.user_role == 2 ? 'ketua chapter' : 'user') | titlecase}} </td>
     </ng-container>
 
     <ng-container matColumnDef="user_status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.user_status}} </td>
+      <td class="imp" mat-cell *matCellDef="let element"> 
+        <mat-chip-list>
+          <mat-chip [ngClass]="{
+            'active': element.user_status == 1,
+            'suspend': element.user_status == 2
+          }">{{((element.user_status == 1 ? 'aktif' : element.user_status == 2 ? 'suspend' : element.user_status == 3 ? 'pending' : 'block') | titlecase)}}</mat-chip>
+        </mat-chip-list>    
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Edit Admin Data" style="min-width: 0" mat-icon-button>
+        <button matTooltip="Edit User Data" mat-icon-button>
           <mat-icon>edit</mat-icon>
+        </button> 
+        <button (click)="onConfirmation(element)" matTooltip="Block User" mat-icon-button>
+          <mat-icon>block</mat-icon>
+        </button> 
+        <button *ngIf="userData.user_id != element.user_id" (click)="onOpenUpgradeDialog(element)" matTooltip="Upgrade / Downgrade User" mat-icon-button>
+          <mat-icon>
+            change_circle
+          </mat-icon>
         </button> 
       </td>
     </ng-container>

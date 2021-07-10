@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -38,6 +39,8 @@ import { KotaComponent } from './components/kota/kota.component';
 import { FormAddKotaComponent } from './components/forms/form-add-kota/form-add-kota.component';
 import { FormEditKotaComponent } from './components/forms/form-edit-kota/form-edit-kota.component';
 import { FormConfirmationComponent } from './components/forms/form-confirmation/form-confirmation.component';
+import { DetailUserComponent } from './components/detail-user/detail-user.component';
+import { UpgradeDowngradeUserComponent } from './components/upgrade-downgrade-user/upgrade-downgrade-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { FormConfirmationComponent } from './components/forms/form-confirmation/
     KotaComponent,
     FormAddKotaComponent,
     FormEditKotaComponent,
-    FormConfirmationComponent
+    FormConfirmationComponent,
+    DetailUserComponent,
+    UpgradeDowngradeUserComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,7 @@ import { FormConfirmationComponent } from './components/forms/form-confirmation/
     MatDialogModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatRadioModule,
     MatNativeDateModule
   ],
   providers: [

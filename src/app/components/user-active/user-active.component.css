@@ -6,10 +6,6 @@ table {
   flex: 1 1 auto;
 }
 
-.hid {
-  display: none;
-}
-
 .table-wrapper {
   max-height: calc(100vh - 29vh);
   overflow: auto;
@@ -71,7 +67,7 @@ div ul.list {
 }
 
 button {
-  min-width: 80px;
+  min-width: 0;
   line-height: 25px;
   font-size: 12px;
   margin: 0px 5px;
