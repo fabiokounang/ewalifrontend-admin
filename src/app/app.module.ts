@@ -41,6 +41,8 @@ import { FormEditKotaComponent } from './components/forms/form-edit-kota/form-ed
 import { FormConfirmationComponent } from './components/forms/form-confirmation/form-confirmation.component';
 import { DetailUserComponent } from './components/detail-user/detail-user.component';
 import { UpgradeDowngradeUserComponent } from './components/upgrade-downgrade-user/upgrade-downgrade-user.component';
+import { FormEditUserComponent } from './components/forms/form-edit-user/form-edit-user.component';
+import { FormUpdateStatusUserComponent } from './components/forms/form-update-status-user/form-update-status-user.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { UpgradeDowngradeUserComponent } from './components/upgrade-downgrade-us
     FormEditKotaComponent,
     FormConfirmationComponent,
     DetailUserComponent,
-    UpgradeDowngradeUserComponent
+    UpgradeDowngradeUserComponent,
+    FormEditUserComponent,
+    FormUpdateStatusUserComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
   <span class="example-spacer"></span>
   <div>
     <mat-form-field>
-      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Email & nama user" matInput>
+      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Email & Nama User" matInput>
     </mat-form-field>
   </div>
 </div>
@@ -61,7 +61,8 @@
         <mat-chip-list>
           <mat-chip [ngClass]="{
             'active': element.user_status == 1,
-            'suspend': element.user_status == 2
+            'suspend': element.user_status == 2,
+            'block': element.user_status == 4
           }">{{((element.user_status == 1 ? 'aktif' : element.user_status == 2 ? 'suspend' : element.user_status == 3 ? 'pending' : 'block') | titlecase)}}</mat-chip>
         </mat-chip-list>    
       </td>
@@ -70,17 +71,20 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Edit User Data" mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button> 
-        <button (click)="onConfirmation(element)" matTooltip="Block User" mat-icon-button>
-          <mat-icon>block</mat-icon>
-        </button> 
-        <button *ngIf="userData.user_id != element.user_id" (click)="onOpenUpgradeDialog(element)" matTooltip="Upgrade / Downgrade User" mat-icon-button>
-          <mat-icon>
-            change_circle
-          </mat-icon>
-        </button> 
+        <ng-container *ngIf="userData.role == 1">
+          <button *ngIf="userData.user_id != element.user_id" (click)="onOpenEditDialog(element)" matTooltip="Edit User Data" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button> 
+          <button *ngIf="userData.user_id != element.user_id" (click)="onOpenUpdateStatusUser(element)" matTooltip="Update Status User" mat-icon-button>
+            <mat-icon>people</mat-icon>
+          </button> 
+          <button *ngIf="userData.user_id != element.user_id" (click)="onOpenUpgradeDialog(element)" matTooltip="Upgrade / Downgrade User" mat-icon-button>
+            <mat-icon>change_circle</mat-icon>
+          </button> 
+        </ng-container>
+        <ng-container *ngIf="userData.role != 1">
+          <small style="color: red">Tidak ada permission</small>
+        </ng-container>
       </td>
     </ng-container>
 

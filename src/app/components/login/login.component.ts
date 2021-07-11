@@ -26,11 +26,12 @@ export class LoginComponent implements OnInit {
     this.loader = true;
     this.sharedService.connection('POST', 'master-login', this.loginForm.value).subscribe((response: any) => {
       if (response.status == 200) {
-        console.log(response);
         this.loader = false;
         if (response.body.status) {
           this.sharedService.saveToLocalStorage(response.body.data);
-          this.router.navigate(['/user-pending']);       
+          let role: any = this.sharedService.getLocalStorageRole();
+          let url = role == 1 ? '/user-pending' : '/user-active';
+          this.router.navigate([url]);       
         } else {
           this.processError(response.body.error);
         }

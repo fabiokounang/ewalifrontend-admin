@@ -1,0 +1,19 @@
+<h3>Update Status User</h3>
+
+<mat-form-field>
+  <mat-label>Pilih Status</mat-label>
+  <mat-select [(ngModel)]="selectedStatus">
+    <mat-option [disabled]="!status.disable" *ngFor="let status of statuses" [value]="status.id">{{status.name | titlecase}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="btn-container">
+  <ng-container *ngIf="!loader">
+    <button type="button" (click)="onUpdateStatusUser()" mat-raised-button color="primary">
+      Simpan
+    </button>
+  </ng-container>
+  <ng-container *ngIf="loader">
+    <mat-spinner diameter="20" style="margin: auto"></mat-spinner>
+  </ng-container>
+</div>

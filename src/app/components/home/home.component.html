@@ -2,7 +2,7 @@
   
   <mat-sidenav (window:resize)="onResize()" #sidenav [mode]="modeSide" [opened]="open" role="navigation">  
      <mat-nav-list>
-      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/user-pending" (click)="onToggle(sidenav)"> 
+      <a *ngIf="role == 1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/user-pending" (click)="onToggle(sidenav)"> 
         <mat-icon>people</mat-icon>
         <span class="nav-caption">User Pending</span>
       </a>

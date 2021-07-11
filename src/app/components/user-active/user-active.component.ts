@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from 'src/app/shared/service/shared.service';
 import { FormConfirmationComponent } from '../forms/form-confirmation/form-confirmation.component';
+import { FormEditUserComponent } from '../forms/form-edit-user/form-edit-user.component';
+import { FormUpdateStatusUserComponent } from '../forms/form-update-status-user/form-update-status-user.component';
 import { UpgradeDowngradeUserComponent } from '../upgrade-downgrade-user/upgrade-downgrade-user.component';
 
 @Component({
@@ -26,20 +28,22 @@ export class UserActiveComponent implements OnInit {
   isFilter: boolean = false;
   searchText: string = '';
   userData: any = null;
+  kotas: any[] = [];
   constructor (private sharedService: SharedService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fillData();
-    this.getAllUserPending();
+    this.getAllUserNotPending();
   }
 
   fillData () {
     this.userData = {
+      role: this.sharedService.getLocalStorageRole(),
       user_id: this.sharedService.getLocalStorageUserId()
     }
   }
 
-  getAllUserPending () {
+  getAllUserNotPending () {
     this.loader = true;
     this.sharedService.connection('GET', 'master-user-active', {}, this.populateGetBody()).subscribe((response: any) => {
       if (response.status == 200) {
@@ -50,6 +54,7 @@ export class UserActiveComponent implements OnInit {
           this.tableQueryData.max = response.body.data.max;
           this.tableQueryData.totalAll = response.body.data.total;
           this.dataSource = new MatTableDataSource(response.body.data.values);
+          this.kotas = response.body.data.kota;
         } else {
           this.processError(response.body.error);
         }
@@ -106,16 +111,13 @@ export class UserActiveComponent implements OnInit {
     if (errors.type === 'message') this.sharedService.callSnack(errors.msg.default, 'Tutup');    
   }
 
-  blockUser (user) {
-    this.sharedService.connection('GET', 'master-user-pending', {}, this.populateGetBody()).subscribe((response: any) => {
+  updateStatusUser (user, status) {
+    this.sharedService.connection('PUT', 'master-user-status', { user_status: status }, '', user.user_id).subscribe((response: any) => {
       if (response.status == 200) {
         this.loader = false;
         if (response.body.status) {
-          this.tableQueryData.page = response.body.data.page;
-          this.tableQueryData.limit = response.body.data.limit;
-          this.tableQueryData.max = response.body.data.max;
-          this.tableQueryData.totalAll = response.body.data.total;
-          this.dataSource = new MatTableDataSource(response.body.data.values);
+          this.sharedService.callSnack('Sukses mengupdate status user', 'Tutup');
+          this.getAllUserNotPending();
         } else {
           this.processError(response.body.error);
         }
@@ -128,7 +130,7 @@ export class UserActiveComponent implements OnInit {
 
   onResetFilter () {
     this.tableQueryData.filter = [];
-    this.getAllUserPending();
+    this.getAllUserNotPending();
     this.sharedService.removeFilterData();
     this.isFilter = false;
   }
@@ -140,24 +142,24 @@ export class UserActiveComponent implements OnInit {
       this.tableQueryData.sort_attr = column;
       this.tableQueryData.sort = sort;
     }
-    this.getAllUserPending();
+    this.getAllUserNotPending();
   }
 
   onPageChange (event) {
     this.tableQueryData.page = event.pageIndex + 1;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
-    this.getAllUserPending();
+    this.getAllUserNotPending();
   }
 
   onSearch () {
     this.tableQueryData.search = this.searchText;    
-    this.getAllUserPending();
+    this.getAllUserNotPending();
   }
 
   onDetectEmpty () {
     if (!this.searchText) {
       this.resetData();
-      this.getAllUserPending();
+      this.getAllUserNotPending();
     }
   }
 
@@ -173,9 +175,29 @@ export class UserActiveComponent implements OnInit {
 
     // dialog.afterClosed().subscribe((result) => {
     //   if (result) {
-    //     this.getAllUserPending();
+    //     this.getAllUserNotPending();
     //   }
     // })
+  }
+
+  onOpenEditDialog (data) {
+    let user = {
+      ...data,
+      ...data.user_detail
+    }
+    delete user.user_detail;
+    const dialog = this.dialog.open(FormEditUserComponent, {
+      width: '500px',
+      height: '600px',
+      data: {
+        user: user,
+        kotas: this.kotas
+      }
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.getAllUserNotPending();
+    })
   }
 
   onOpenUpgradeDialog (element) {
@@ -191,8 +213,8 @@ export class UserActiveComponent implements OnInit {
       if (response.status == 200) {
         this.loader = false;
         if (response.body.status) {
-          this.sharedService.callSnack('Sukses upgrade user user', 'Tutup');
-          this.getAllUserPending();
+          this.sharedService.callSnack('Sukses mengupdate user', 'Tutup');
+          this.getAllUserNotPending();
         } else {
           this.processError(response.body.error);
         }
@@ -203,17 +225,12 @@ export class UserActiveComponent implements OnInit {
     });
   }
 
-  onConfirmation (data) {
-    const dialog = this.dialog.open(FormConfirmationComponent, {
-      width: '300px',
-      data: {
-        text: 'Apakah anda yakin akan block user ini ?',
-        warning: ''
-      }
+  onOpenUpdateStatusUser (user) {
+    const dialog = this.dialog.open(FormUpdateStatusUserComponent, {
+      data: user
     });
     dialog.afterClosed().subscribe((result) => {
-      console.log(result);
-      if (result) this.blockUser(data);
+      if (result) this.updateStatusUser(user, result);
     });
   }
 

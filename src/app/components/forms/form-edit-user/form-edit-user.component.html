@@ -1,0 +1,162 @@
+<form (ngSubmit)="onEditDataUser()" [formGroup]="userForm">
+  <h3>Edit Data User</h3>
+
+  <mat-form-field>
+    <mat-label>Kota</mat-label>
+    <mat-select formControlName="kota_id" (selectionChange)="onSelectKota($event)">
+      <mat-option *ngFor="let kota of kotas" [value]="kota.kota_id">{{kota.kota_nama | titlecase}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.get('kota_id').hasError('required')">Kota wajib dipilih</mat-error>
+    <mat-error *ngIf="userForm.get('kota_id').hasError('kota_id')">{{userForm.get('kota_id').errors['kota_id']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nama Lengkap</mat-label>
+    <input matInput type="text" formControlName="nama_lengkap">
+    <mat-error *ngIf="userForm.get('nama_lengkap').hasError('required')">Nama wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nama_lengkap').hasError('nama_lengkap')">{{userForm.get('nama_lengkap').errors['nama_lengkap']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nama Panggilan</mat-label>
+    <input matInput type="text" formControlName="nama_panggilan">
+    <mat-error *ngIf="userForm.get('nama_panggilan').hasError('required')">Nama panggilan wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nama_panggilan').hasError('nama_panggilan')">{{userForm.get('nama_panggilan').errors['nama_panggilan']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nama VIN</mat-label>
+    <input matInput type="text" formControlName="nomor_vin">
+    <mat-error *ngIf="userForm.get('nomor_vin').hasError('required')">Nomor vin wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_vin').hasError('nomor_vin')">{{userForm.get('nomor_vin').errors['nomor_vin']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor Plat Polisi</mat-label>
+    <input matInput type="text" formControlName="nomor_polisi">
+    <mat-error *ngIf="userForm.get('nomor_polisi').hasError('required')">Nomor polisi wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_polisi').hasError('nomor_polisi')">{{userForm.get('nomor_polisi').errors['nomor_polisi']}}</mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor ID</mat-label>
+    <input matInput type="text" formControlName="nomor_id">
+    <mat-error *ngIf="userForm.get('nomor_id').hasError('required')">Nomor ID wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_id').hasError('nomor_id')">{{userForm.get('nomor_id').errors['nomor_id']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tanggal Lahir</mat-label>
+    <input formControlName="tanggal_lahir" matInput [matDatepicker]="picker1">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="userForm.get('tanggal_lahir').hasError('required')">Tanggal lahir wajib diatur</mat-error>
+    <mat-error *ngIf="userForm.get('tanggal_lahir').hasError('tanggal_lahir')">{{userForm.get('tanggal_lahir').errors['tanggal_lahir']}}</mat-error>
+  </mat-form-field>   
+
+  <mat-form-field>
+    <mat-label>Alamat Sesuai KTP</mat-label>
+    <input matInput type="text" formControlName="alamat_ktp">
+    <mat-error *ngIf="userForm.get('alamat_ktp').hasError('required')">Alamat sesuai KTP wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('alamat_ktp').hasError('alamat_ktp')">{{userForm.get('alamat_ktp').errors['alamat_ktp']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Alamat Sesuai Domisili</mat-label>
+    <input matInput type="text" formControlName="alamat_domisili">
+    <mat-error *ngIf="userForm.get('alamat_domisili').hasError('required')">Alamat sesuai domisili wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('alamat_domisili').hasError('alamat_domisili')">{{userForm.get('alamat_domisili').errors['alamat_domisili']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Kota Sesuai Domisili</mat-label>
+    <input matInput type="text" formControlName="kota_domisili">
+    <mat-error *ngIf="userForm.get('kota_domisili').hasError('required')">Kota sesuai domisili wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('kota_domisili').hasError('kota_domisili')">{{userForm.get('kota_domisili').errors['kota_domisili']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Provinsi Sesuai Domisili</mat-label>
+    <input matInput type="text" formControlName="provinsi_domisili">
+    <mat-error *ngIf="userForm.get('provinsi_domisili').hasError('required')">Provinsi sesuai domisili wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('provinsi_domisili').hasError('provinsi_domisili')">{{userForm.get('provinsi_domisili').errors['provinsi_domisili']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Pekerjaan</mat-label>
+    <input matInput type="text" formControlName="pekerjaan">
+    <mat-error *ngIf="userForm.get('pekerjaan').hasError('required')">Pekerjaan wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('pekerjaan').hasError('pekerjaan')">{{userForm.get('pekerjaan').errors['pekerjaan']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor Telepon (yang bisa dihubungi)</mat-label>
+    <input matInput type="text" formControlName="nomor_telepon_current">
+    <mat-error *ngIf="userForm.get('nomor_telepon_current').hasError('required')">Nomor telepon yang bisa dihubungi wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_telepon_current').hasError('nomor_telepon_current')">{{userForm.get('nomor_telepon_current').errors['nomor_telepon_current']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor Telepon Telegram</mat-label>
+    <input matInput type="text" formControlName="nomor_telepon_telegram">
+    <mat-error *ngIf="userForm.get('nomor_telepon_telegram').hasError('required')">Nomor telepon telegram wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_telepon_telegram').hasError('nomor_telepon_telegram')">{{userForm.get('nomor_telepon_telegram').errors['nomor_telepon_telegram']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor Telepon Whatsapp</mat-label>
+    <input matInput type="text" formControlName="nomor_telepon_whatsapp">
+    <mat-error *ngIf="userForm.get('nomor_telepon_whatsapp').hasError('required')">Nomor telepon whatsapp wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_telepon_whatsapp').hasError('nomor_telepon_whatsapp')">{{userForm.get('nomor_telepon_whatsapp').errors['nomor_telepon_whatsapp']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Nomor Telepon Emergency</mat-label>
+    <input matInput type="text" formControlName="nomor_telepon_emergency">
+    <mat-error *ngIf="userForm.get('nomor_telepon_emergency').hasError('required')">Nomor telepon emergency wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('nomor_telepon_emergency').hasError('nomor_telepon_emergency')">{{userForm.get('nomor_telepon_emergency').errors['nomor_telepon_emergency']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Golongan Darah</mat-label>
+    <mat-select formControlName="golongan_darah" (selectionChange)="onSelectInformationGolonganDarah($event)">
+      <mat-option *ngFor="let gol of golonganDarah" [value]="gol">{{gol}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.get('golongan_darah').hasError('required')">Golongan darah wajib diisi</mat-error>
+    <mat-error *ngIf="userForm.get('golongan_darah').hasError('golongan_darah')">{{userForm.get('golongan_darah').errors['golongan_darah']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Informasi Mengetahui Ewali</mat-label>
+    <mat-select formControlName="informasi_wali" (selectionChange)="onSelectInformationWali($event)" multiple>
+      <mat-option *ngFor="let info of information_wali" [value]="info">{{info | titlecase}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.get('informasi_wali').hasError('required')">Informasi Ewali wajib dipilih</mat-error>
+    <mat-error *ngIf="userForm.get('informasi_wali').hasError('informasi_wali')">{{userForm.get('informasi_wali').errors['informasi_wali']}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Emoney yang digunakan</mat-label>
+    <mat-select formControlName="emoney" (selectionChange)="onSelectEmoney($event)">
+      <mat-option *ngFor="let emoney of emoneys" [value]="emoney">{{emoney | titlecase}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="userForm.get('emoney').hasError('required')">Emoney wajib dipilih</mat-error>
+    <mat-error *ngIf="userForm.get('emoney').hasError('emoney')">{{userForm.get('emoney').errors['emoney']}}</mat-error>
+  </mat-form-field>
+
+  <div class="btn-container">
+    <ng-container *ngIf="!loader">
+      <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+        Tutup
+      </button>
+      &nbsp;
+      <button type="submit" [disabled]="userForm.invalid" mat-raised-button color="primary">
+        Simpan
+      </button>
+    </ng-container>
+    <ng-container *ngIf="loader">
+      <mat-spinner diameter="20" style="margin: auto"></mat-spinner>
+    </ng-container>
+  </div>
+</form>

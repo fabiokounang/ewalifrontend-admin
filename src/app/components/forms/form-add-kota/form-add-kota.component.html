@@ -7,11 +7,11 @@
   <div class="btn-container">
     <ng-container *ngIf="!loader">
       <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
-        Close
+        Tutup
       </button>
       &nbsp;
       <button type="submit" [disabled]="kotaForm.invalid" mat-raised-button color="primary">
-        Save
+        Simpan
       </button>
     </ng-container>
     <ng-container *ngIf="loader">

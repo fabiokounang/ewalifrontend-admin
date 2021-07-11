@@ -1,0 +1,13 @@
+mat-form-field {
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.btn-container, h3 {
+  text-align: center;
+}
+
+h3 {
+  font-family: 'poppin-regular';
+  font-weight: bold;
+}

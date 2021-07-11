@@ -12,7 +12,7 @@ import { FormEditKotaComponent } from '../forms/form-edit-kota/form-edit-kota.co
   styleUrls: ['./kota.component.css']
 })
 export class KotaComponent implements OnInit {
-
+  role: any = null;
   loader = false;
   tableQueryData: any = {
     page: 1,
@@ -30,6 +30,7 @@ export class KotaComponent implements OnInit {
   constructor (private sharedService: SharedService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.role = this.sharedService.getLocalStorageRole();
     this.getAllKotaChapter();
   }
 

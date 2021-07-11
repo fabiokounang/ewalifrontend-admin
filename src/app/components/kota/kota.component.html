@@ -1,13 +1,13 @@
 <div class="filter-wrapper">
   <div class="position: relative">
-    <button type="button" color="primary" mat-raised-button (click)="onOpenAddDialog()">
+    <button *ngIf="role == 1" type="button" color="primary" mat-raised-button (click)="onOpenAddDialog()">
       <span style="font-size: 12px; color: white">Tambah Kota / Chapter</span>
     </button>
   </div>
   <span class="example-spacer"></span>
   <div>
     <mat-form-field>
-      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Email & nama user" matInput>
+      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Nama Kota" matInput>
     </mat-form-field>
   </div>
 </div>
@@ -40,12 +40,17 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button (click)="onOpenEditDialog(element)" matTooltip="Edit Admin Data" mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button> 
-        <button matTooltip="Hapus Kota / Chapter" mat-icon-button (click)="onConfirmation(element)">
-          <mat-icon>delete</mat-icon>
-        </button>  
+        <ng-container *ngIf="role == 1">
+          <button (click)="onOpenEditDialog(element)" matTooltip="Edit Admin Data" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button> 
+          <button matTooltip="Hapus Kota / Chapter" mat-icon-button (click)="onConfirmation(element)">
+            <mat-icon>delete</mat-icon>
+          </button> 
+        </ng-container> 
+        <ng-container *ngIf="role != 1">
+          <small style="color: red">Tidak ada permission</small>
+        </ng-container>
       </td>
     </ng-container>
 

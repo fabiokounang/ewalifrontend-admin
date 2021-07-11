@@ -10,10 +10,12 @@ import { SharedService } from 'src/app/shared/service/shared.service';
 export class HomeComponent implements OnInit {
   modeSide: any = 'side';
   open: boolean = true;
+  userId: any = null;
   role: any = null;
   constructor (private router: Router, private sharedService: SharedService) {}
 
   ngOnInit(): void {
+    this.userId = this.sharedService.getLocalStorageUserId();
     this.role = this.sharedService.getLocalStorageRole();
     this.onResize();
   }
