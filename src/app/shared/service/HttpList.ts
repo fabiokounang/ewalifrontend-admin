@@ -17,6 +17,9 @@ export default {
   'master-review-form': {
     endpoint: 'api/users/review_form/v1_0'
   },
+  'master-activate-user': {
+    endpoint: 'api/users/activate/v1_0'
+  },
   'master-upgrade-downgrade-user': {
     endpoint: 'api/users/role/v1_0'
   },

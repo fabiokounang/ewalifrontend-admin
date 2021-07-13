@@ -23,7 +23,7 @@ export class UserActiveComponent implements OnInit {
     totalAll: 0,
     filter: []
   }
-  displayedColumns: any[] = ['user_created_at', 'user_email', 'user_nama', 'kota', 'user_role', 'user_status', 'action'];
+  displayedColumns: any[] = ['user_created_at', 'user_email', 'user_nama', 'kota', 'user_role', 'user_activate', 'user_status', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   isFilter: boolean = false;
   searchText: string = '';
@@ -231,6 +231,24 @@ export class UserActiveComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result) this.updateStatusUser(user, result);
+    });
+  }
+
+  onActivateUser (user) {
+    this.loader = true;
+    this.sharedService.connection('PUT', 'master-activate-user', {}, '', user.user_id).subscribe((response: any) => {
+      if (response.status == 200) {
+        this.loader = false;
+        if (response.body.status) {
+          this.sharedService.callSnack('Sukses verifikasi user secara manual', 'Tutup');
+          this.getAllUserNotPending();
+        } else {
+          this.processError(response.body.error);
+        }
+      }
+    }, (error) => {
+      this.loader = false;
+      this.sharedService.callSnack(this.sharedService.getSystemErrorMsg(), 'Tutup');
     });
   }
 

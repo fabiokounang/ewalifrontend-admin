@@ -55,6 +55,18 @@
       <td class="imp" mat-cell *matCellDef="let element"> {{(element.user_role == 1 ? 'admin' : element.user_role == 2 ? 'ketua chapter' : 'user') | titlecase}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="user_activate">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Verified ? </th>
+      <td class="imp" mat-cell *matCellDef="let element"> 
+        <mat-chip-list>
+          <mat-chip [ngClass]="{
+            'active': element.user_activate == 1,
+            'suspend': element.user_activate == 2
+          }">{{((element.user_activate == 1 ? 'sudah verifikasi' : 'belum verifikasi') | titlecase)}}</mat-chip>
+        </mat-chip-list>    
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="user_status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
       <td class="imp" mat-cell *matCellDef="let element"> 
@@ -80,6 +92,9 @@
           </button> 
           <button *ngIf="userData.user_id != element.user_id" (click)="onOpenUpgradeDialog(element)" matTooltip="Upgrade / Downgrade User" mat-icon-button>
             <mat-icon>change_circle</mat-icon>
+          </button> 
+          <button *ngIf="userData.user_id != element.user_id && element.user_activate == 2" (click)="onActivateUser(element)" matTooltip="Veifiy User (Manual)" mat-icon-button>
+            <mat-icon>task_alt</mat-icon>
           </button> 
         </ng-container>
         <ng-container *ngIf="userData.role != 1">
