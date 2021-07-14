@@ -2,6 +2,8 @@
   <mat-form-field>
     <mat-label>Nama Kota / Chapter</mat-label>
     <input matInput type="text" formControlName="kota_nama">
+    <mat-error *ngIf="kotaForm.get('kota_nama').hasError('required')">Nama kota / chapter wajib diisi</mat-error>
+    <mat-error *ngIf="kotaForm.get('kota_nama').hasError('maxlength')">Nama kota maksimal 255 karakter</mat-error>
   </mat-form-field>
 
   <div class="btn-container">

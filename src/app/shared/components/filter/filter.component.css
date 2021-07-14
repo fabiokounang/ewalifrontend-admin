@@ -1,0 +1,13 @@
+mat-form-field {
+  width: 100%;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+mat-label {
+  width: 100%;
+  padding-left: 1rem;
+  opacity: 0.5;
+}

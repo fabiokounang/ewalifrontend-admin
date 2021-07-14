@@ -1,0 +1,28 @@
+<div class="form-wrapper">
+  <form [formGroup]="filterForm" (ngSubmit)="onFilterData()">    
+    <div *ngFor="let key of objectKeys(filterData); let i = index">
+      <mat-form-field>
+        <mat-select [formControlName]="key" [placeholder]="key === 'kota_id' ? ('kota' | titlecase) : key">
+          <mat-option *ngFor="let data of filterData[key]" [value]="data.id">
+            {{data.name | titlecase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Tutup
+        </button>
+        &nbsp;
+        <button type="submit" mat-raised-button color="primary">
+          Filter
+        </button>
+      </ng-container>
+      <ng-container *ngIf="loader">
+        <mat-spinner diameter="20" style="margin: auto"></mat-spinner>
+      </ng-container>
+    </div>
+  </form>
+</div>

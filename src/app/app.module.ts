@@ -43,6 +43,7 @@ import { DetailUserComponent } from './components/detail-user/detail-user.compon
 import { UpgradeDowngradeUserComponent } from './components/upgrade-downgrade-user/upgrade-downgrade-user.component';
 import { FormEditUserComponent } from './components/forms/form-edit-user/form-edit-user.component';
 import { FormUpdateStatusUserComponent } from './components/forms/form-update-status-user/form-update-status-user.component';
+import { FilterComponent } from './shared/components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { FormUpdateStatusUserComponent } from './components/forms/form-update-st
     DetailUserComponent,
     UpgradeDowngradeUserComponent,
     FormEditUserComponent,
-    FormUpdateStatusUserComponent
+    FormUpdateStatusUserComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,

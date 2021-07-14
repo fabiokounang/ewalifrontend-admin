@@ -1,6 +1,6 @@
 export default {
   'master-login': {
-    endpoint: 'api/users/login/v1_0'
+    endpoint: 'api/users/login_admin/v1_0'
   },
   'master-user': {
     endpoint: 'api/users/v1_0'

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { FilterComponent } from 'src/app/shared/components/filter/filter.component';
 import { SharedService } from 'src/app/shared/service/shared.service';
 import { FormConfirmationComponent } from '../forms/form-confirmation/form-confirmation.component';
 import { FormEditUserComponent } from '../forms/form-edit-user/form-edit-user.component';
@@ -29,11 +31,13 @@ export class UserActiveComponent implements OnInit {
   searchText: string = '';
   userData: any = null;
   kotas: any[] = [];
+  subscription: Subscription;
   constructor (private sharedService: SharedService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fillData();
     this.getAllUserNotPending();
+    this.listenSubscription();
   }
 
   fillData () {
@@ -41,6 +45,14 @@ export class UserActiveComponent implements OnInit {
       role: this.sharedService.getLocalStorageRole(),
       user_id: this.sharedService.getLocalStorageUserId()
     }
+  }
+
+  listenSubscription () {
+    this.subscription = this.sharedService.onFilter.subscribe((uri) => {
+      this.tableQueryData.filter = uri;
+      this.isFilter = true;
+      this.getAllUserNotPending();
+    });
   }
 
   getAllUserNotPending () {
@@ -164,20 +176,25 @@ export class UserActiveComponent implements OnInit {
   }
 
   onOpenFilterDialog () {
-    // const dialog = this.dialog.open(FormFilterComponent, {
-    //   width: '500px',
-    //   data: {
-    //     skeleton: {
-    //       status: this.sharedService.getSkeletonAdminUser()
-    //     }
-    //   }
-    // });
+    const dialog = this.dialog.open(FilterComponent, {
+      width: '500px',
+      data: {
+        skeleton: {
+          kota_id: this.kotas.map(val => {
+            return {
+              id: val.kota_id,
+              name: val.kota_nama
+            }
+          })
+        }
+      }
+    });
 
-    // dialog.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.getAllUserNotPending();
-    //   }
-    // })
+    dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getAllUserNotPending();
+      }
+    })
   }
 
   onOpenEditDialog (data) {
