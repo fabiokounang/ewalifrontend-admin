@@ -2,7 +2,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Pilih Role</mat-label>
     <mat-select (selectionChange)="onSelectRole($event)">
-      <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name | titlecase}}</mat-option>
+      <mat-option [disabled]="!role.disable" *ngFor="let role of roles" [value]="role.id">{{role.name | titlecase}}</mat-option>
     </mat-select>
   </mat-form-field>
 

@@ -5,7 +5,7 @@
     </button>
   </div>
   <span class="example-spacer"></span>
-  <div>
+  <div *ngIf="dataSource.data.length > 0">
     <mat-form-field>
       <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Nama Kota" matInput>
     </mat-form-field>

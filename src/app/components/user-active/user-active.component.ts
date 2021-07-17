@@ -217,10 +217,12 @@ export class UserActiveComponent implements OnInit {
     })
   }
 
-  onOpenUpgradeDialog (element) {
-    const dialog = this.dialog.open(UpgradeDowngradeUserComponent);
+  onOpenUpgradeDialog (user) {
+    const dialog = this.dialog.open(UpgradeDowngradeUserComponent, {
+      data: user
+    });
     dialog.afterClosed().subscribe((result) => {
-      this.upgradeDowngradeUser(result, element.user_id);
+      this.upgradeDowngradeUser(result, user.user_id);
     });
   }
 

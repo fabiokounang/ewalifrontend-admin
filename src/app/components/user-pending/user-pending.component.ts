@@ -21,7 +21,7 @@ export class UserPendingComponent implements OnInit {
     totalAll: 0,
     filter: []
   }
-  displayedColumns: any[] = ['user_created_at', 'user_last_update', 'user_email', 'user_activate', 'action'];
+  displayedColumns: any[] = ['user_created_at', 'user_last_update', 'user_email', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   isFilter: boolean = false;
   searchText: string = '';

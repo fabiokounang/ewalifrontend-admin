@@ -10,7 +10,7 @@
         <mat-label>E-mail</mat-label>
         <input type="text" matInput formControlName="email">
         <mat-error *ngIf="loginForm.get('email').hasError('required')">Email wajib diisi</mat-error>
-        <mat-error *ngIf="loginForm.get('email').hasError('email')">Email tidak valid</mat-error>
+        <mat-error *ngIf="loginForm.get('email').hasError('email')">{{loginForm.get('email').errors.email}}</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -18,14 +18,18 @@
         <mat-icon (click)="onSetVisibility()" matSuffix>{{eye}}</mat-icon>
         <mat-error *ngIf="loginForm.get('password').hasError('required')">Password wajib diisi</mat-error>
         <mat-error *ngIf="loginForm.get('password').hasError('minlength')">Password minimal 6 karakter / digit</mat-error>
+        <mat-error *ngIf="loginForm.get('password').hasError('password')">{{loginForm.get('password').errors.password}}</mat-error>
       </mat-form-field>
 
-      <div class="check-wrapper">
+      <!-- <div class="check-wrapper">
         <input type="checkbox" class="checkbox"> &nbsp;&nbsp; <span>Remember Me</span>
+      </div> -->
+      <div class="forget-password" routerLink="/forget-password">
+        <small>Forget Password ?</small>
       </div>
       <br><br>
       <div class="btn-container">
-        <button class="btn" mat-raised-button>Login</button>
+        <button [disabled]="loginForm.invalid" class="btn" mat-raised-button>Login</button>
       </div>
     </div>
   </form>

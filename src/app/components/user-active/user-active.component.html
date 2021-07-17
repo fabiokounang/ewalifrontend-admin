@@ -1,4 +1,4 @@
-<div class="filter-wrapper">
+<div class="filter-wrapper" *ngIf="kotas.length > 0">
   <div class="position: relative">
     <button type="button" color="accent" mat-raised-button (click)="onOpenFilterDialog()">
       <span style="font-size: 12px; color: white">Filter</span>

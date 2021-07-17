@@ -26,6 +26,15 @@ export default {
   'master-get-login': {
     endpoint: 'api/users/get_login/v1_0'
   },
+  'master-change-password': {
+    endpoint: 'api/users/change_password/v1_0'
+  },
+  'master-forget-password': {
+    endpoint: 'api/users/forget_password/v1_0'
+  },
+  'master-reset-password': {
+    endpoint: 'api/users/reset_password/v1_0'
+  },
   'master-kota': {
     endpoint: 'api/kota/v1_0'
   },

@@ -8,7 +8,7 @@
     </button>
   </div> -->
   <span class="example-spacer"></span>
-  <div>
+  <div *ngIf="dataSource.data.length > 0">
     <mat-form-field>
       <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Email & nama user" matInput>
     </mat-form-field>
@@ -58,10 +58,10 @@
       <td class="imp" mat-cell *matCellDef="let element"> {{element.user_nama}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="user_activate">
+    <!-- <ng-container matColumnDef="user_activate">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Verifikasi </th>
       <td class="imp" mat-cell *matCellDef="let element"> {{element.user_activate == 1 ? 'Sudah verifikasi' : 'Belum verifikasi'}} </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Tindakan </th>

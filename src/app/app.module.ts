@@ -44,6 +44,9 @@ import { UpgradeDowngradeUserComponent } from './components/upgrade-downgrade-us
 import { FormEditUserComponent } from './components/forms/form-edit-user/form-edit-user.component';
 import { FormUpdateStatusUserComponent } from './components/forms/form-update-status-user/form-update-status-user.component';
 import { FilterComponent } from './shared/components/filter/filter.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { FilterComponent } from './shared/components/filter/filter.component';
     UpgradeDowngradeUserComponent,
     FormEditUserComponent,
     FormUpdateStatusUserComponent,
-    FilterComponent
+    FilterComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
