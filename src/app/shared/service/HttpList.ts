@@ -38,6 +38,9 @@ export default {
   'master-kota': {
     endpoint: 'api/kota/v1_0'
   },
+  'master-verifikasi': {
+    endpoint: 'api/users/verif_email/v1_0'
+  },
   'master-logout': {
     endpoint: 'api/logout'
   }

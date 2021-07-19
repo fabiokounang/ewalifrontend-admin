@@ -1,0 +1,131 @@
+div.wrapper {
+  background-image: url('../../../assets/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-wrapper {
+  padding: 3.4rem;
+  border-radius: 10px;
+  width: 100%;
+  background: -webkit-linear-gradient(top,#7579ff,#b224ef);
+  box-sizing: border-box;
+  width: 500px;
+  height: 300px;
+}
+
+.logo {
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 90px;
+  height: 40px;
+}
+
+h3 {
+  color: #fff;
+  padding: 1.8rem 0;
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: 'poppin-regular';
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+mat-form-field {
+  width: 100%;
+  font-family: 'poppin-light';
+  color: #fff;
+  padding-bottom: 0.7rem;
+}
+
+mat-label {
+  font-family: 'poppin-light';
+  color: #fff;
+}
+
+input.mat-input-element {
+  font-family: 'poppin-light' !important;
+  margin-top: .5rem;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: lightgrey !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #fff !important;;
+}
+
+.check-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.check-wrapper span {
+  color: #fff;
+  font-family: 'poppin-light';
+  font-weight: lighter;
+}
+
+div.btn-container {
+  text-align: center;
+}
+
+button {
+  font-family: 'poppin-medium' !important;
+  color: #000;
+  padding: 0.3rem 2.5rem;
+  border-radius: 50px;
+}
+
+mat-error {
+  color: #fff;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.forget-password {
+  text-align: center;
+}
+
+small {
+  color: #ffff00;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+small:hover {
+  text-decoration: underline;
+}

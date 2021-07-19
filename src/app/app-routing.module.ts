@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { UserActiveComponent } from './components/user-active/user-active.component';
 import { UserPendingComponent } from './components/user-pending/user-pending.component';
+import { VerifikasiComponent } from './components/verifikasi/verifikasi.component';
 import { GuardService } from './shared/service/guard.service';
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent
+  },
+  {
+    path: 'verifikasi/:token',
+    component: VerifikasiComponent
   },
   {
     path: '',

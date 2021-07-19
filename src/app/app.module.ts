@@ -47,6 +47,7 @@ import { FilterComponent } from './shared/components/filter/filter.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { VerifikasiComponent } from './components/verifikasi/verifikasi.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     FilterComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    VerifikasiComponent
   ],
   imports: [
     BrowserModule,
